@@ -3,60 +3,59 @@ import PropTypes from 'prop-types'
 
 class AddUserForm extends Component{
 	state = {
-    	firstName: '',
-      	lastName: '',
-      	userName: '',
-      	playedGames: 0,
-      	existingUserName: false,
-    }
+    firstName: '',
+    lastName: '',
+    userName: '',
+    playedGames: 0,
+    existingUserName: false,
+  }
 	
 	handleChange = (event) => {
-      	let name = event.target.name
-      	let value = event.target.value
-    	this.setState((currentState)=>({
-          firstName: name === 'firstName' ? value : currentState.firstName,
-          lastName: name === 'lastName' ? value : currentState.lastName,
-          userName: name === 'userName' ? value : currentState.userName,
-          existingUserName: false,
-      	}));
-    };
+    let name = event.target.name
+    let value = event.target.value
+    this.setState((currentState)=>({
+      firstName: name === 'firstName' ? value : currentState.firstName,
+      lastName: name === 'lastName' ? value : currentState.lastName,
+      userName: name === 'userName' ? value : currentState.userName,
+      existingUserName: false,
+    }));
+  };
 
 	handleSubmit = (event,newUser) =>{
-      	event.preventDefault()
-      	const userNameExists = this.userNameExists(newUser.userName)
-    	if(!userNameExists){
-          this.props.addUser(event,newUser,userNameExists)
-          this.clearInput()
-          
-        }
-      else{
-      	this.setState(()=>({
-        	existingUserName: userNameExists
-        }))
-      }
+    event.preventDefault()
+    const userNameExists = this.userNameExists(newUser.userName)
+    if(!userNameExists){
+        this.props.addUser(event,newUser,userNameExists)
+        this.clearInput()
     }
+    else{
+      this.setState(()=>({
+        existingUserName: userNameExists
+      }))
+    }
+  }
 
 	clearInput = () => {
-    	this.setState({
-        	firstName: '',
-      		lastName: '',
-      		userName: '',
-        })
-    }
+    this.setState({
+      firstName: '',
+      lastName: '',
+      userName: '',
+    })
+  }
 	
 	userNameExists = (userName) =>{
-    	return this.props.userNames.includes(userName)
-    }
+    return this.props.userNames.includes(userName)
+  }
 
 	inputIsEmpty = () => {
-    	const { firstName, lastName, userName } = this.state
-        if( !firstName || !lastName || !userName ) {
-        	return true
-        }
-      	else {
-        	return false
-        }
+    const { firstName, lastName, userName } = this.state
+    if( !firstName || !lastName || !userName ) {
+      return true
     }
+    else {
+      return false
+    }
+  }
 
 	render(){
     return(
