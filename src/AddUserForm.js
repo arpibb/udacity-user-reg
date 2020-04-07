@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 class AddUserForm extends Component{
 	state = {
@@ -58,36 +59,39 @@ class AddUserForm extends Component{
     }
 
 	render(){
-    	return(
-      		<div>
-        	<form onSubmit={(event) => this.handleSubmit(event,this.state)}>
-          	<input
+    return(
+      <div>
+        <form onSubmit={(event) => this.handleSubmit(event,this.state)}>
+          <input
             type="text"
             placeholder="Enter First Name"
             value={this.state.firstName}
             onChange={(event) => this.handleChange(event)}
-			name="firstName"
+            name="firstName"
           />
-			<input
+          <input
             type="text"
             placeholder="Enter Last Name"
             value={this.state.lastName}
             onChange={this.handleChange}
-			name="lastName"
+            name="lastName"
           />
-			<input
+          <input
             type="text"
             placeholder="Enter Username"
             value={this.state.userName}
             onChange={this.handleChange}
-			name="userName"
+            name="userName"
           />
           <button disabled={this.inputIsEmpty()}>Add</button>
         </form>
-		{this.state.existingUserName && <p>This username is taken. Please choose another one!</p>}
+        {this.state.existingUserName && <p>This username is taken. Please choose another one!</p>}
       </div>
-      )
-    }
+    )
+  }
+}
+AddUserForm.propTypes = {
+	addUser: PropTypes.func.isRequired,
 }
 
 export default AddUserForm
